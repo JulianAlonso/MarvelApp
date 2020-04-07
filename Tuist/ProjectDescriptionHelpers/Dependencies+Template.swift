@@ -4,6 +4,7 @@ public extension TargetDependency {
     // Modules
     static let core: TargetDependency = .project(target: "Core", path: .relativeToRoot("Modules/Core"))
     static let displayKit: TargetDependency = .project(target: "DisplayKit", path: .relativeToRoot("Modules/DisplayKit"))
+    static let marvelAPI: TargetDependency = .project(target: "MarvelAPI", path: .relativeToRoot("Modules/MarvelAPI"))
     static let network: TargetDependency = .project(target: "Network", path: .relativeToRoot("Modules/Network"))
     static let support: TargetDependency = .project(target: "Support", path: .relativeToRoot("Modules/Support"))
 
