@@ -1,0 +1,18 @@
+#Mac trash
+.DS_Store
+
+## Travis things
+.bundle/
+vendor/
+
+#Carthage
+Carthage
+
+# Tuist
+**/*.xcodeproj/
+*.xcworkspace/
+**/Derived/
+
+# Xcode things
+**xcuserdata
+
