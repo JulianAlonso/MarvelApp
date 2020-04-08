@@ -1,0 +1,18 @@
+//
+//  Environment.swift.swift
+//  App
+//
+//  Created by Juli Alonso on 07/04/2020.
+//
+
+import Foundation
+import Support
+
+final class Environment {
+    static let current = Environment()
+    
+    let apiKey = ""
+    let host: URL = "http(s)://gateway.marvel.com/"
+    
+    private init() {}
+}

@@ -16,3 +16,4 @@ Carthage
 # Xcode things
 **xcuserdata
 
+App/Sources/Environment.swift
