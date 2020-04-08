@@ -13,7 +13,6 @@ struct PrimaryLabel: ViewModifier {
 struct HeadlineLabel: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
             .foregroundColor(.black)
             .font(.headline)
 
@@ -23,9 +22,17 @@ struct HeadlineLabel: ViewModifier {
 struct ActionLabel: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding()
             .foregroundColor(.accentColor)
             .font(.subheadline)
+    }
+}
+
+struct DescriptionLabel: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.gray)
+            .font(.callout)
+
     }
 }
 
@@ -36,6 +43,10 @@ extension Text {
 
     var headline: ModifiedContent<Text, HeadlineLabel> {
         modifier(HeadlineLabel())
+    }
+
+    var description: ModifiedContent<Text, DescriptionLabel> {
+        modifier(DescriptionLabel())
     }
 
     var action: ModifiedContent<Text, ActionLabel> {

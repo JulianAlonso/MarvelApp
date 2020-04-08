@@ -28,6 +28,6 @@ final class HeroListViewModel: ViewModel<HeroListState, HeroListAction> {
 
 extension HeroDisplayModel {
     init(hero: Hero) {
-        self.init(id: hero.id, name: hero.name)
+        self.init(id: hero.id, name: hero.name, description: hero.description, image: hero.image)
     }
 }

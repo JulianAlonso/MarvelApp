@@ -23,9 +23,7 @@ public struct HeroListView: View {
 
     public var body: some View {
         List(viewModel.heroes) { hero in
-            Section(footer: EmptyView()) {
-                HeroCellView(model: hero)
-            }
+            HeroCellView(model: hero)
         }
         .navigationBarTitle(Text("Heroes"))
         .onAppear(perform: { self.viewModel.handle(action: .load) })

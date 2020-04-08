@@ -24,7 +24,7 @@ public final class HeroService: HeroServicing {
 
 extension Core.Hero {
     init?(hero: Hero) {
-        guard let id = hero.id, let name = hero.name else { return nil }
-        self.init(id: id, name: name)
+        guard let id = hero.id, let name = hero.name, let thumbnail = hero.thumbnail else { return nil }
+        self.init(id: id, name: name, description: hero.description, image: thumbnail.url)
     }
 }
