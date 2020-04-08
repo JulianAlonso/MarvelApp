@@ -14,4 +14,8 @@ public final class HeroProvider {
         client.perform(get("/v1/public/characters"))
     }
 
+    func hero(by id: Int) -> AnyPublisher<Response<Page<[Hero]>>, Error> {
+        client.perform(get("/v1/public/characters/\(id)"))
+    }
+
 }

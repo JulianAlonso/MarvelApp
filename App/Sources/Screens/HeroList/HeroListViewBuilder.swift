@@ -8,7 +8,7 @@ final class HeroListViewBuilder: ViewBuilder<HeroListView> {
     override func component() -> Component? {
         Component {
             factory { FetchHeroesUseCase(service: $0()) }
-            factory { HeroListViewModel(fetchHeroesUseCase: $0()).any }
+            factory { HeroListViewModel(navigator: $0(), fetchHeroesUseCase: $0()).any }
         }
     }
 

@@ -19,5 +19,6 @@ let servicesComponent = Component {
 }
 
 let useCaseComponent = Component {
+    factory { FetchHeroDetailUseCase(service: $0()) }
     factory { FetchHeroesUseCase(service: $0()) }
 }

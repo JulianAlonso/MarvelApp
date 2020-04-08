@@ -10,6 +10,7 @@ public struct HeroListState: ViewState {
 
 public enum HeroListAction {
     case load
+    case selected(HeroDisplayModel)
 }
 
 public struct HeroListView: View {
@@ -23,7 +24,7 @@ public struct HeroListView: View {
 
     public var body: some View {
         List(viewModel.heroes) { hero in
-            HeroCellView(model: hero)
+            HeroCellView(model: hero).onTapGesture { self.viewModel.handle(action: .selected(hero)) }
         }
         .navigationBarTitle(Text("Heroes"))
         .onAppear(perform: { self.viewModel.handle(action: .load) })
