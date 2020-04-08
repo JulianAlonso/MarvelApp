@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 
+/// All this code from: https://github.com/V8tr/AsyncImage with some little changes
 class ImageLoader: ObservableObject {
     @Published var image: UIImage?
 

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// All this code from: https://github.com/V8tr/AsyncImage with some little changes
 struct ImageCacheKey: EnvironmentKey {
     static let defaultValue: ImageCache = TemporaryImageCache()
 }

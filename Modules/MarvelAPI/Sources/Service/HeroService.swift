@@ -5,21 +5,18 @@ import Network
 
 public final class HeroService: HeroServicing {
 
-    let client: HTTPPerforming
+    private let provider: HeroProvider
 
-    public init(client: HTTPPerforming) {
-        self.client = client
+    public init(provider: HeroProvider) {
+        self.provider = provider
     }
 
     public func heroes() -> AnyPublisher<[Core.Hero], Error> {
-        _heroes()
+        provider.heroes()
             .tryMap { $0.page.results.compactMap(Core.Hero.init) }
             .eraseToAnyPublisher()
     }
 
-    private func _heroes() -> AnyPublisher<HeroListResponse, Error> {
-        client.perform(get("/v1/public/characters"))
-    }
 }
 
 extension Core.Hero {

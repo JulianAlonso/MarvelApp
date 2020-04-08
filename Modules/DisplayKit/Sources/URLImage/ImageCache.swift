@@ -1,5 +1,6 @@
 import UIKit
 
+/// All this code from: https://github.com/V8tr/AsyncImage with some little changes
 protocol ImageCache {
     subscript(_ url: URL) -> UIImage? { get set }
 }

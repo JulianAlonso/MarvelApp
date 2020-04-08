@@ -14,7 +14,8 @@ let networkComponent = Component {
 }
 
 let servicesComponent = Component {
-    factory { HeroService(client: $0()) as HeroServicing }
+    factory { HeroProvider(client: $0()) }
+    factory { HeroService(provider: $0()) as HeroServicing }
 }
 
 let useCaseComponent = Component {
