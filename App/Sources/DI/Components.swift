@@ -4,9 +4,13 @@ import Injection
 import MarvelAPI
 import Network
 
-// swiftlint:disable line_length
 let networkComponent = Component {
-    single { HTTPClient(host: Environment.current.host, session: URLSession.shared, authorization: Authorization.apiKey(Environment.current.apiKey)) as HTTPPerforming }
+    single {
+        HTTPClient(host: Environment.current.host,
+                   session: URLSession.shared,
+                   authorization: Authorization(public: Environment.current.public, private: Environment.current.private)) as HTTPPerforming
+
+    }
 }
 
 let servicesComponent = Component {

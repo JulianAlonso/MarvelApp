@@ -10,10 +10,26 @@ final class HeroListViewModel: ViewModel {
 
     private let fetchHeroesUseCase: FetchHeroesUseCase
 
+    var poll: Set<AnyCancellable> = []
+
     init(fetchHeroesUseCase: FetchHeroesUseCase) {
         self.fetchHeroesUseCase = fetchHeroesUseCase
     }
 
-    func handle(action: HeroListAction) {}
+    func handle(action: HeroListAction) {
+        switch action {
+        case .load:
+            fetchHeroesUseCase.execute()
+                .sink(receiveCompletion: { com in
+                    switch com {
+                    case .failure(let error): print("Bad news: \(error)")
+                    case .finished: print("finished")
+                    }
+                }, receiveValue: {
+                    print("ho ho ho \($0)")
+                })
+                .store(in: &poll)
+        }
+    }
 
 }

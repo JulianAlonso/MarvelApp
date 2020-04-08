@@ -39,6 +39,12 @@ extension Endpoint: Equatable {
     }
 }
 
+public extension Endpoint {
+    mutating func append(parameters: Parameters) {
+        self.parameters = (self.parameters ?? [:]) + parameters
+    }
+}
+
 extension Endpoint {
     func absolute(with host: URL) -> URL {
         return (self.host ?? host).appendingPathComponent(path)
@@ -54,10 +60,6 @@ extension Endpoint {
         default: request = URLEncoding().encode(endpoint: self, host: host).run { $0.httpMethod = method.rawValue }
         }
         return request
-    }
-
-    mutating func append(parameters: Parameters) {
-        self.parameters = (self.parameters ?? [:]) + parameters
     }
 }
 

@@ -10,9 +10,10 @@ import Support
 
 final class Environment {
     static let current = Environment()
-    
-    let apiKey = ""
-    let host: URL = "http(s)://gateway.marvel.com/"
-    
+
+    let `public`  = ""
+    let `private` = ""
+    let host: URL = "https://gateway.marvel.com"
+
     private init() {}
 }

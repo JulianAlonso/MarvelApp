@@ -5,7 +5,9 @@ public struct HeroListState: ViewState {
     public static var initial: HeroListState { HeroListState() }
 }
 
-public enum HeroListAction {}
+public enum HeroListAction {
+    case load
+}
 
 public struct HeroListView: View {
 
@@ -18,5 +20,6 @@ public struct HeroListView: View {
 
     public var body: some View {
         Text("Hello World")
+            .onAppear(perform: { self.viewModel.handle(action: .load) })
     }
 }

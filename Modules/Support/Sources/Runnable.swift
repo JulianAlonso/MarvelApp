@@ -13,6 +13,6 @@ public extension Runnable {
     func run(_ work: (inout Self) -> Void) -> Self {
         var copy = self
         work(&copy)
-        return self
+        return copy
     }
 }

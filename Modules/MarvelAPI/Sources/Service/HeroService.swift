@@ -13,11 +13,11 @@ public final class HeroService: HeroServicing {
 
     public func heroes() -> AnyPublisher<[Core.Hero], Error> {
         _heroes()
-            .tryMap { $0.compactMap(Core.Hero.init) }
+            .tryMap { $0.page.results.compactMap(Core.Hero.init) }
             .eraseToAnyPublisher()
     }
 
-    private func _heroes() -> AnyPublisher<[Hero], Error> {
+    private func _heroes() -> AnyPublisher<HeroListResponse, Error> {
         client.perform(get("/v1/public/characters"))
     }
 }
