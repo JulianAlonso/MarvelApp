@@ -1,10 +1,11 @@
 import Foundation
 import Injection
+import Support
 import UIKit
 
 final class Navigator {
 
-    private let navigationController = UINavigationController()
+    private let navigationController = UINavigationController().run { $0.navigationBar.prefersLargeTitles = true }
 
     init(window: UIWindow) {
         window.rootViewController = navigationController
@@ -35,3 +36,5 @@ struct Screen {
         self.build = build
     }
 }
+
+extension UINavigationController: Runnable {}

@@ -2,6 +2,9 @@ import Foundation
 import SwiftUI
 
 public struct HeroListState: ViewState {
+
+    public var heroes: [HeroDisplayModel] = []
+
     public static var initial: HeroListState { HeroListState() }
 }
 
@@ -19,7 +22,12 @@ public struct HeroListView: View {
     }
 
     public var body: some View {
-        Text("Hello World")
-            .onAppear(perform: { self.viewModel.handle(action: .load) })
+        List(viewModel.heroes) { hero in
+            Section(footer: EmptyView()) {
+                HeroCellView(model: hero)
+            }
+        }
+        .navigationBarTitle(Text("Heroes"))
+        .onAppear(perform: { self.viewModel.handle(action: .load) })
     }
 }

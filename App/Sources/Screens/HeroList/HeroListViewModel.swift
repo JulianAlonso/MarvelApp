@@ -4,32 +4,30 @@ import DisplayKit
 import Foundation
 import SwiftUI
 
-final class HeroListViewModel: ViewModel {
-
-    @Published private(set) var state: HeroListState = .initial
+final class HeroListViewModel: ViewModel<HeroListState, HeroListAction> {
 
     private let fetchHeroesUseCase: FetchHeroesUseCase
-
-    var poll: Set<AnyCancellable> = []
 
     init(fetchHeroesUseCase: FetchHeroesUseCase) {
         self.fetchHeroesUseCase = fetchHeroesUseCase
     }
 
-    func handle(action: HeroListAction) {
+    override func handle(action: HeroListAction) {
         switch action {
         case .load:
             fetchHeroesUseCase.execute()
-                .sink(receiveCompletion: { com in
-                    switch com {
-                    case .failure(let error): print("Bad news: \(error)")
-                    case .finished: print("finished")
-                    }
-                }, receiveValue: {
-                    print("ho ho ho \($0)")
-                })
-                .store(in: &poll)
+                .map { $0.map { HeroDisplayModel(hero: $0) } }
+                .replaceError(with: [])
+                .eraseToAnyPublisher()
+                .assign(to: \.state.heroes, on: self)
+                .store(in: &bag)
         }
     }
 
+}
+
+extension HeroDisplayModel {
+    init(hero: Hero) {
+        self.init(id: hero.id, name: hero.name)
+    }
 }

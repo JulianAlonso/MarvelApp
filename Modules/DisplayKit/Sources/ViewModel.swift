@@ -20,7 +20,11 @@ public final class AnyViewModel<State, Action>: ObservableObject {
     private let _state: () -> State
     private let _handle: (Action) -> Void
 
-    public var objectWillChange: AnyPublisher<Void, Never> { _objectWillChange() }
+    public var objectWillChange: AnyPublisher<Void, Never> {
+        _objectWillChange()
+            .receive(on: RunLoop.main)
+            .eraseToAnyPublisher()
+    }
 
     private var state: State { _state() }
 
