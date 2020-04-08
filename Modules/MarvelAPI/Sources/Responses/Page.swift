@@ -5,5 +5,5 @@ struct Page<T: Decodable>: Decodable {
     let limit: Int
     let total: Int
     let count: Int
-    let results: [T]
+    let results: T
 }

@@ -10,7 +10,7 @@ public final class HeroProvider {
         self.client = client
     }
 
-    func heroes() -> AnyPublisher<HeroListResponse, Error> {
+    func heroes() -> AnyPublisher<Response<Page<[Hero]>>, Error> {
         client.perform(get("/v1/public/characters"))
     }
 
