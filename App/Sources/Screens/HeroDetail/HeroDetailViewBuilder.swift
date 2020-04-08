@@ -13,7 +13,7 @@ final class HeroDetailViewBuilder: ViewBuilder<HeroDetailView> {
 
     override func component() -> Component? {
         Component {
-            factory { HeroDetailViewModel(hero: self.hero, fetchHero: $0()).any }
+            factory { HeroDetailViewModel(hero: self.hero).any }
         }
     }
 

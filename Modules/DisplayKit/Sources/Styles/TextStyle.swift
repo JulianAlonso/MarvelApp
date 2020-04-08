@@ -19,6 +19,15 @@ struct HeadlineLabel: ViewModifier {
     }
 }
 
+struct SubheadlineLabel: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.black)
+            .font(.subheadline)
+
+    }
+}
+
 struct ActionLabel: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -32,6 +41,7 @@ struct DescriptionLabel: ViewModifier {
         content
             .foregroundColor(.gray)
             .font(.callout)
+            .multilineTextAlignment(.leading)
 
     }
 }
@@ -51,5 +61,9 @@ extension Text {
 
     var action: ModifiedContent<Text, ActionLabel> {
         modifier(ActionLabel())
+    }
+
+    var subheadline: ModifiedContent<Text, SubheadlineLabel> {
+        modifier(SubheadlineLabel())
     }
 }

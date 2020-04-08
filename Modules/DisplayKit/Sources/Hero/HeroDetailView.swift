@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 
 public struct HeroDetailState: ViewState {
-    let hero: HeroDisplayModel
+    let hero: HeroDetailDisplayModel
 
-    public static var initial: HeroDetailState { fatalError("calling bad initial state") }
+    public static var initial: HeroDetailState { fatalError("calling not implemented initial state") }
 
-    public init(hero: HeroDisplayModel) {
+    public init(hero: HeroDetailDisplayModel) {
         self.hero = hero
     }
 }
@@ -21,7 +21,45 @@ public struct HeroDetailView: View {
     }
 
     public var body: some View {
-        Text(viewModel.hero.name)
+        ScrollView {
+            VStack {
+                URLImage(url: viewModel.hero.image, placeholder: Rectangle().background(Color.gray), configuration: { $0.resizable() })
+                    .aspectRatio(1, contentMode: .fit)
+
+                VStack {
+                    HStack {
+                        Text(viewModel.hero.name).headline.padding(.topBottom)
+                        Spacer()
+                    }
+
+                    if !(viewModel.hero.description?.isEmpty ?? true) {
+                        Text(viewModel.hero.description!).description.padding(.bottom)
+                    }
+
+                    HStack {
+                        Text("Commics").subheadline
+                        Spacer()
+                    }
+                    Text(viewModel.hero.comics).description.font(.footnote)
+
+                    Divider()
+
+                    HStack {
+                        Text("Series").subheadline
+                        Spacer()
+                    }
+                    Text(viewModel.hero.series).description.font(.footnote)
+
+                    Divider()
+
+                    HStack {
+                        Text("Stories").subheadline
+                        Spacer()
+                    }
+                    Text(viewModel.hero.stories).description.font(.footnote)
+                }.padding()
+            }
+        }
     }
 
 }
