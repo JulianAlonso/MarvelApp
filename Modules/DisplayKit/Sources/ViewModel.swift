@@ -26,7 +26,7 @@ public final class AnyViewModel<State, Action>: ObservableObject {
             .eraseToAnyPublisher()
     }
 
-    private var state: State { _state() }
+    var state: State { _state() }
 
     func handle(action: Action) { _handle(action) }
 

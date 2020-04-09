@@ -1,11 +1,12 @@
 import Foundation
 import SwiftUI
 
-public struct HeroListState: ViewState {
+public enum HeroListState: ViewState {
 
-    public var heroes: [HeroDisplayModel] = []
+    case loading
+    case loaded([HeroDisplayModel])
 
-    public static var initial: HeroListState { HeroListState() }
+    public static var initial: HeroListState { .loading }
 }
 
 public enum HeroListAction {
@@ -23,10 +24,15 @@ public struct HeroListView: View {
     }
 
     public var body: some View {
-        List(viewModel.heroes) { hero in
-            HeroCellView(model: hero).onTapGesture { self.viewModel.handle(action: .selected(hero)) }
+        switch viewModel.state {
+        case .loading: return AnyView(LoadingView().onAppear(perform: { self.viewModel.handle(action: .load) }))
+        case .loaded(let heroes): return AnyView(list(heroes: heroes))
         }
-        .navigationBarTitle(Text("Heroes"))
-        .onAppear(perform: { self.viewModel.handle(action: .load) })
+    }
+
+    private func list(heroes: [HeroDisplayModel]) -> some View {
+        List(heroes) { hero in
+            HeroCellView(model: hero).onTapGesture { self.viewModel.handle(action: .selected(hero)) }
+        }.navigationBarTitle("Heroes")
     }
 }

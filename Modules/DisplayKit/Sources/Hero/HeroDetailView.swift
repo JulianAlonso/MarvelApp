@@ -1,46 +1,56 @@
 import Foundation
 import SwiftUI
 
-public struct HeroDetailState: ViewState {
-    let hero: HeroDetailDisplayModel
+public enum HeroDetailState: ViewState {
 
-    public static var initial: HeroDetailState { fatalError("calling not implemented initial state") }
+    case loading
+    case loaded(HeroDetailDisplayModel)
 
-    public init(hero: HeroDetailDisplayModel) {
-        self.hero = hero
-    }
+    public static var initial: HeroDetailState { .loading }
+
+}
+
+public enum HeroDetailAction {
+    case load
 }
 
 public struct HeroDetailView: View {
 
     @ObservedObject
-    private(set) var viewModel: AnyViewModel<HeroDetailState, Never>
+    private(set) var viewModel: AnyViewModel<HeroDetailState, HeroDetailAction>
 
-    public init(viewModel: AnyViewModel<HeroDetailState, Never>) {
+    public init(viewModel: AnyViewModel<HeroDetailState, HeroDetailAction>) {
         self.viewModel = viewModel
     }
 
     public var body: some View {
+        switch viewModel.state {
+        case .loading: return AnyView(LoadingView().onAppear(perform: { self.viewModel.handle(action: .load) }))
+        case .loaded(let hero): return AnyView(detail(hero: hero))
+        }
+    }
+
+    private func detail(hero: HeroDetailDisplayModel) -> some View {
         ScrollView {
             VStack {
-                URLImage(url: viewModel.hero.image, placeholder: Rectangle().background(Color.gray), configuration: { $0.resizable() })
+                URLImage(url: hero.image, placeholder: Rectangle().background(Color.gray), configuration: { $0.resizable() })
                     .aspectRatio(1, contentMode: .fit)
 
                 VStack {
                     HStack {
-                        Text(viewModel.hero.name).headline.padding(.topBottom)
+                        Text(hero.name).headline.padding(.topBottom)
                         Spacer()
                     }
 
-                    if !(viewModel.hero.description?.isEmpty ?? true) {
-                        Text(viewModel.hero.description!).description.padding(.bottom)
+                    if !(hero.description?.isEmpty ?? true) {
+                        Text(hero.description!).description.padding(.bottom)
                     }
 
                     HStack {
                         Text("Commics").subheadline
                         Spacer()
                     }
-                    Text(viewModel.hero.comics).description.font(.footnote)
+                    Text(hero.comics).description.font(.footnote)
 
                     Divider()
 
@@ -48,7 +58,7 @@ public struct HeroDetailView: View {
                         Text("Series").subheadline
                         Spacer()
                     }
-                    Text(viewModel.hero.series).description.font(.footnote)
+                    Text(hero.series).description.font(.footnote)
 
                     Divider()
 
@@ -56,10 +66,11 @@ public struct HeroDetailView: View {
                         Text("Stories").subheadline
                         Spacer()
                     }
-                    Text(viewModel.hero.stories).description.font(.footnote)
+                    Text(hero.stories).description.font(.footnote)
                 }.padding()
             }
         }
+
     }
 
 }

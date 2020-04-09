@@ -4,15 +4,28 @@ import DisplayKit
 import Foundation
 import SwiftUI
 
-final class HeroDetailViewModel: DisplayKit.ViewModel {
+final class HeroDetailViewModel: ViewModel<HeroDetailState, HeroDetailAction> {
 
-    @Published private(set) var state: HeroDetailState
+    private let id: Int
+    private let fetchHeroDetailUseCase: FetchHeroDetailUseCase
 
-    init(hero: Hero) {
-        self.state = HeroDetailState(hero: HeroDetailDisplayModel(hero: hero))
+    init(id: Int, fetchHeroDetailUseCase: FetchHeroDetailUseCase) {
+        self.id = id
+        self.fetchHeroDetailUseCase = fetchHeroDetailUseCase
     }
 
-    func handle(action: Never) {}
+    override func handle(action: HeroDetailAction) {
+        switch action {
+        case .load: fetchHeroDetailUseCase.execute(.init(id: id))
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error): print(error)
+                case .finished: break
+                }
+            }, receiveValue: { self.state = .loaded(HeroDetailDisplayModel(hero: $0)) })
+            .store(in: &bag)
+        }
+    }
 
 }
 

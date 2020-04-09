@@ -9,10 +9,6 @@ final class HeroListViewModel: ViewModel<HeroListState, HeroListAction> {
     private let navigator: Navigator
     private let fetchHeroesUseCase: FetchHeroesUseCase
 
-    private var heroes: [Hero] = [] {
-        didSet { state.heroes = heroes.map { HeroDisplayModel(hero: $0) } }
-    }
-
     init(navigator: Navigator, fetchHeroesUseCase: FetchHeroesUseCase) {
         self.navigator = navigator
         self.fetchHeroesUseCase = fetchHeroesUseCase
@@ -22,12 +18,15 @@ final class HeroListViewModel: ViewModel<HeroListState, HeroListAction> {
         switch action {
         case .load:
             fetchHeroesUseCase.execute()
-                .replaceError(with: [])
-                .eraseToAnyPublisher()
-                .assign(to: \.heroes, on: self)
+                .sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .failure(let error): print(error)
+                    case .finished: break
+                    }
+                }, receiveValue: { self.state = .loaded($0.map { HeroDisplayModel(hero: $0) }) })
                 .store(in: &bag)
         case .selected(let hero):
-            navigator.handle(.push(.detail(hero: heroes.first(where: { $0.id == hero.id })!)))
+            navigator.handle(.push(.detail(hero: hero.id)))
         }
     }
 

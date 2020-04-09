@@ -5,15 +5,15 @@ import Injection
 
 final class HeroDetailViewBuilder: ViewBuilder<HeroDetailView> {
 
-    private let hero: Hero
+    private let id: Int
 
-    init(hero: Hero) {
-        self.hero = hero
+    init(id: Int) {
+        self.id = id
     }
 
     override func component() -> Component? {
         Component {
-            factory { HeroDetailViewModel(hero: self.hero).any }
+            factory { HeroDetailViewModel(id: self.id, fetchHeroDetailUseCase: $0()).any }
         }
     }
 
@@ -23,5 +23,5 @@ final class HeroDetailViewBuilder: ViewBuilder<HeroDetailView> {
 }
 
 extension Screen {
-    static func detail(hero: Hero) -> Screen { .init(HeroDetailViewBuilder(hero: hero)) }
+    static func detail(hero id: Int) -> Screen { .init(HeroDetailViewBuilder(id: id)) }
 }
