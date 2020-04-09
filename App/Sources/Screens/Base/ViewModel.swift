@@ -8,5 +8,7 @@ class ViewModel<State, Action>: DisplayKit.ViewModel where State: ViewState {
 
     var bag: Set<AnyCancellable> = []
 
-    func handle(action: Action) {}
+    func handle(action: Action) {
+        fatalError("Calling not implemented handle(action:)")
+    }
 }
