@@ -20,5 +20,6 @@ let project = Project(name: "Marvel",
                                  deploymentTarget: .defaultDeployment,
                                  infoPlist: .default,
                                  sources: ["Tests/**"],
-                                 dependencies: [.target(name: "App"), .nimble])
+                                 resources: ["Tests/Resources/**"],
+                                 dependencies: [.target(name: "App"), .nimble, .httpStubs])
                       ])

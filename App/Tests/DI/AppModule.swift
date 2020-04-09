@@ -3,8 +3,8 @@ import Injection
 
 let appModule = {
     Module {
-        component { storageComponent }
-        component { serviceComponent }
+        component { networkComponent }
+        component { servicesComponent }
         component { useCaseComponent }
     }
 }
