@@ -2,15 +2,18 @@ import Combine
 import Core
 import DisplayKit
 import Foundation
+import Support
 import SwiftUI
 
 final class HeroDetailViewModel: ViewModel<HeroDetailState, HeroDetailAction> {
 
     private let id: Int
+    private let navigator: Navigator
     private let fetchHeroDetailUseCase: FetchHeroDetailUseCase
 
-    init(id: Int, fetchHeroDetailUseCase: FetchHeroDetailUseCase) {
+    init(id: Int, navigator: Navigator, fetchHeroDetailUseCase: FetchHeroDetailUseCase) {
         self.id = id
+        self.navigator = navigator
         self.fetchHeroDetailUseCase = fetchHeroDetailUseCase
     }
 
@@ -19,7 +22,7 @@ final class HeroDetailViewModel: ViewModel<HeroDetailState, HeroDetailAction> {
         case .load: fetchHeroDetailUseCase.execute(.init(id: id))
             .sink(receiveCompletion: { completion in
                 switch completion {
-                case .failure(let error): print(error)
+                case .failure(let error): main { self.navigator.handle(.error(error)) }
                 case .finished: break
                 }
             }, receiveValue: { self.state = .loaded(HeroDetailDisplayModel(hero: $0)) })

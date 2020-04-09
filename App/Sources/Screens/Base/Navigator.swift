@@ -7,6 +7,8 @@ final class Navigator {
 
     private let navigationController = UINavigationController().run { $0.navigationBar.prefersLargeTitles = true }
 
+    private var top: UIViewController { navigationController.viewControllers.last ?? navigationController }
+
     init(window: UIWindow) {
         window.rootViewController = navigationController
     }
@@ -14,6 +16,7 @@ final class Navigator {
     func handle(_ navigation: Navigation) {
         switch navigation {
         case .push(let screen): navigationController.pushViewController(screen.build(), animated: true)
+        case .error(let error, let action): top.present(ErrorController.with(error: error, actionBlock: action), animated: true, completion: nil)
         }
     }
 
@@ -22,6 +25,7 @@ final class Navigator {
 extension Navigator {
     enum Navigation {
         case push(Screen)
+        case error(Error, (() -> Void)? = nil)
     }
 }
 
