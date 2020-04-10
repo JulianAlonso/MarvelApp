@@ -26,8 +26,7 @@ public final class HTTPClient: HTTPPerforming {
     }
 
     private func authorize(endpoint: Endpoint) -> Endpoint {
-        guard let authorization = self.authorization else { return endpoint }
-        return authorization.authorize(endpoint: endpoint)
+        authorization?.authorize(endpoint: endpoint) ?? endpoint
     }
 
 }
