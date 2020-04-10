@@ -33,9 +33,9 @@ extension Endpoint: Hashable {
 
 extension Endpoint: Equatable {
     public static func == (lhs: Endpoint, rhs: Endpoint) -> Bool {
-        return lhs.host == rhs.host &&
-            lhs.method == rhs.method &&
-            lhs.path == rhs.path
+        lhs.host == rhs.host &&
+        lhs.method == rhs.method &&
+        lhs.path == rhs.path
     }
 }
 
@@ -47,7 +47,7 @@ public extension Endpoint {
 
 extension Endpoint {
     func absolute(with host: URL) -> URL {
-        return (self.host ?? host).appendingPathComponent(path)
+        (self.host ?? host).appendingPathComponent(path)
     }
 
     func encode(with host: URL) -> URLRequest {
@@ -63,7 +63,6 @@ extension Endpoint {
     }
 }
 
-public func get(_ path: String,
-                params: ParameterConvertible? = nil) -> Endpoint {
-    return Endpoint(method: .get, path: path, parameters: params)
+public func get(_ path: String, params: ParameterConvertible? = nil) -> Endpoint {
+    Endpoint(method: .get, path: path, parameters: params)
 }
