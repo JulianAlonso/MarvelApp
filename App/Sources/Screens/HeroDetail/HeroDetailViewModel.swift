@@ -7,11 +7,11 @@ import SwiftUI
 
 final class HeroDetailViewModel: ViewModel<HeroDetailState, HeroDetailAction> {
 
-    private let id: Int
+    private let id: Hero.ID
     private let navigator: Navigator
     private let fetchHeroDetailUseCase: FetchHeroDetailUseCase
 
-    init(id: Int, navigator: Navigator, fetchHeroDetailUseCase: FetchHeroDetailUseCase) {
+    init(id: Hero.ID, navigator: Navigator, fetchHeroDetailUseCase: FetchHeroDetailUseCase) {
         self.id = id
         self.navigator = navigator
         self.fetchHeroDetailUseCase = fetchHeroDetailUseCase

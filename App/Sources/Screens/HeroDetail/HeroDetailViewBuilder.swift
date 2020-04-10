@@ -5,9 +5,9 @@ import Injection
 
 final class HeroDetailViewBuilder: ViewBuilder<HeroDetailView> {
 
-    private let id: Int
+    private let id: Hero.ID
 
-    init(id: Int) {
+    init(id: Hero.ID) {
         self.id = id
     }
 
@@ -23,5 +23,5 @@ final class HeroDetailViewBuilder: ViewBuilder<HeroDetailView> {
 }
 
 extension Screen {
-    static func detail(hero id: Int) -> Screen { .init(HeroDetailViewBuilder(id: id)) }
+    static func detail(hero id: Hero.ID) -> Screen { .init(HeroDetailViewBuilder(id: id)) }
 }
