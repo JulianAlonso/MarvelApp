@@ -34,8 +34,8 @@ extension Endpoint: Hashable {
 extension Endpoint: Equatable {
     public static func == (lhs: Endpoint, rhs: Endpoint) -> Bool {
         lhs.host == rhs.host &&
-        lhs.method == rhs.method &&
-        lhs.path == rhs.path
+            lhs.method == rhs.method &&
+            lhs.path == rhs.path
     }
 }
 
