@@ -41,6 +41,8 @@ Also notice that error handling it's very basic, there are no Error threatment t
 
 ## App Modules
 
+![Modules Graph](modules_graph.png)
+
 ### Core
 With our bussiness logic, in this case get heroes from an api.
 
