@@ -5,12 +5,21 @@ Powered by [Tuist](https://github.com/tuist/tuist).
 
 Requires XCode 11.4 (If lower XCode version, you should add `.resolve()` where your find out bugs due to callAsFunction feature on `Injection.Module` these errors could appear inside `ScreneDelegate.injectMe` and `ViewBuilders`)
 
-To run the project, you'll need [Carthage](https://github.com/Carthage/Carthage) installed on your computer. Then run
+To run the project, you'll need [Carthage](https://github.com/Carthage/Carthage) installed on your computer. 
+
+### Automatic setup
+Run 
+```
+scripts/setup.sh
+```
+
+### Manually setup
+Follow this steps by order.
+Run
 ```
 carthage bootstrap --platform iOS
 ```
-
-You mus't provide your Deleveper Keys on `App/Sources/Environment.swift.template` and remove the `.template` suffix of the file.
+Open your text editor and provide your Deleveper Keys on `App/Sources/Environment.swift.template` and save removing the `.template` suffix of the file.
 
 Also you need to install Tuist. Do it simply running this in your shell:
 ```
