@@ -2,20 +2,23 @@
 
 Example marvel master and detail app.
 Powered by [Tuist](https://github.com/tuist/tuist).
-To run the project you need to install Tuist before. Do it simply running this in your shell:
+
+Requires XCode 11.4 (If lower XCode version, you should add `.resolve()` where your find out bugs due to callAsFunction feature on `Injection.Module` these errors could appear inside `ScreneDelegate.injectMe` and `ViewBuilders`)
+
+To run the project, you'll need [Carthage](https://github.com/Carthage/Carthage) installed on your computer. Then run
+```
+carthage bootstrap --platform iOS
+```
+
+You mus't provide your Deleveper Keys on `App/Sources/Environment.swift.template` and remove the `.template` suffix of the file.
+
+Also you need to install Tuist. Do it simply running this in your shell:
 ```
 bash <(curl -Ls https://install.tuist.io)
 ```
 and then run `tuist generate` this will generate the project using the tuist bundled version inside the repo.
 
 Tuist it's a tool that help us with the project definition, avoid xcodeproj conflicts, give us a simple way to modularize the app and help us with the dependencies also.
-
-Also, you'll need [Carthage](https://github.com/Carthage/Carthage) installed on your computer. Then run
-```
-carthage bootstrap --platform iOS
-```
-
-You mus't provide your Deleveper Keys on `Environment.swift.template` and remove the `.template` suffix of the file.
 
 ## Architecture
 
