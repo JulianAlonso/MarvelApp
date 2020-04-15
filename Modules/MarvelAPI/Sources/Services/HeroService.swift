@@ -2,6 +2,7 @@ import Combine
 import Core
 import Foundation
 import Network
+import Support
 
 public final class HeroService: HeroServicing {
 
@@ -19,8 +20,8 @@ public final class HeroService: HeroServicing {
 
     public func hero(by id: Int) -> AnyPublisher<Core.Hero, Error> {
         provider.hero(by: id)
-            .tryMap { try $0.data.results.first.unwrap(else: MarvelError.emptyArraySearchCharacterById) }
-            .tryMap { try Core.Hero(hero: $0).unwrap(else: MarvelError.unsufficientFields) }
+            .tryMap { try $0.data.results.first ?? MarvelError.emptyArraySearchCharacterById }
+            .tryMap { try Core.Hero(hero: $0) ?? MarvelError.unsufficientFields }
             .eraseToAnyPublisher()
     }
 
