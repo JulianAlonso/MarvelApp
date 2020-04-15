@@ -34,8 +34,8 @@ extension Core.Hero {
                   name: name,
                   description: hero.description,
                   image: thumbnail.url,
-                  comics: hero.comics.items.compactMap { $0.name },
-                  stories: hero.stories.items.compactMap { $0.name },
-                  series: hero.series.items.compactMap { $0.name })
+                  comics: hero.comics.items.compactMap(\.name),
+                  stories: hero.stories.items.compactMap(\.name),
+                  series: hero.series.items.compactMap(\.name))
     }
 }
