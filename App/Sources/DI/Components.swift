@@ -7,7 +7,7 @@ import Network
 let networkComponent = Component {
     single {
         HTTPClient(host: Environment.current.host,
-                   session: URLSession.shared,
+                   session: .shared,
                    authorization: Authorization(public: Environment.current.public, private: Environment.current.private)) as HTTPPerforming
 
     }
